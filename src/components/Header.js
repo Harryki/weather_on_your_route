@@ -68,18 +68,18 @@ export default function Header(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography className={classes.title} variant="h6" noWrap>
             {props.title}
           </Typography>
-          <div className={classes.search}>
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -91,7 +91,7 @@ export default function Header(props) {
               }}
               inputProps={{ "aria-label": "search" }}
             />
-          </div>
+          </div> */}
         </Toolbar>
       </AppBar>
     </div>
