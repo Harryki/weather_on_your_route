@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/Harryki/weather_on_your_route/static/js/main.4ab6dde1.chunk.js",
+    "main.js.map": "/Harryki/weather_on_your_route/static/js/main.4ab6dde1.chunk.js.map",
+    "runtime-main.js": "/Harryki/weather_on_your_route/static/js/runtime-main.7d919be4.js",
+    "runtime-main.js.map": "/Harryki/weather_on_your_route/static/js/runtime-main.7d919be4.js.map",
+    "static/js/2.17d5aabc.chunk.js": "/Harryki/weather_on_your_route/static/js/2.17d5aabc.chunk.js",
+    "static/js/2.17d5aabc.chunk.js.map": "/Harryki/weather_on_your_route/static/js/2.17d5aabc.chunk.js.map",
+    "index.html": "/Harryki/weather_on_your_route/index.html",
+    "precache-manifest.0e54c4e69f4c536b8ce987b8af95b1eb.js": "/Harryki/weather_on_your_route/precache-manifest.0e54c4e69f4c536b8ce987b8af95b1eb.js",
+    "service-worker.js": "/Harryki/weather_on_your_route/service-worker.js",
+    "static/js/2.17d5aabc.chunk.js.LICENSE": "/Harryki/weather_on_your_route/static/js/2.17d5aabc.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7d919be4.js",
+    "static/js/2.17d5aabc.chunk.js",
+    "static/js/main.4ab6dde1.chunk.js"
+  ]
+}
