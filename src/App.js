@@ -1,37 +1,27 @@
 import React, { Component } from "react";
 import Script from "react-load-script";
 import {
-  TextField,
+  Container,
+  Input,
   Button,
   CircularProgress,
   List,
   ListItem,
-  ListItemIcon,
-  ListItemText
+  IconButton,
+  ListItemText,
+  InputAdornment
 } from "@material-ui/core";
+
 import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
 import PlaceIcon from "@material-ui/icons/Place";
+import ClearIcon from "@material-ui/icons/Clear";
 
 import axios from "axios";
 
 // components
 import Header from "./components/Header";
 const styles = {
-  // button: {
-  //   background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-  //   borderRadius: 3,
-  //   border: 0,
-  //   color: "white",
-  //   height: 48,
-  //   padding: "0 30px",
-  //   boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
-  // },
-  // buttonBlue: {
-  //   background: "linear-gradient(45deg, #2196f3 30%, #21cbf3 90%)",
-  //   boxShadow: "0 3px 5px 2px rgba(33, 203, 243, .30)"
-  // }
   input: {
-    // width: 400,
     marginBottom: 10,
     marginLeft: 5
   }
@@ -51,6 +41,7 @@ class App extends Component {
       isLoading: false,
       weathers: null
     };
+    this.makeInputInvalid = this.makeInputInvalid.bind(this);
   }
 
   handleScriptLoad = () => {
@@ -101,6 +92,10 @@ class App extends Component {
     const target = e.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
+    this.makeInputInvalid(name, value);
+  };
+
+  makeInputInvalid = (name, value) => {
     if (name === "origin") {
       this.setState({ [name]: value, origin_googled: false });
     } else if (name === "destination") {
@@ -182,9 +177,12 @@ class App extends Component {
       });
   }
 
+  handleClickClear = prop => e => {
+    this.makeInputInvalid(prop, "");
+  };
+
   render() {
     const { weathers, isLoading } = this.state;
-    const { classes } = this.props;
 
     const endpoint = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_PLACES_API_KEY}&libraries=places`;
     let listItems = null;
@@ -195,7 +193,7 @@ class App extends Component {
           <ListItem key={`${idx}` + w.feedCreation}>
             <ListItemText
               // metric, default is Celsius
-              primary={`°C ${res.observation[0].temperature} ${res.observation[0].description}`}
+              primary={`${res.observation[0].temperature}°C, ${res.observation[0].description}`}
               secondary={`${res.city}, ${res.state}, ${res.country}(${res.observation[0].latitude},${res.observation[0].longitude})`}
             />
           </ListItem>
@@ -204,47 +202,69 @@ class App extends Component {
     }
     return (
       <>
-        <Header title="Weather on your route"></Header>
-        <Script url={endpoint} onLoad={this.handleScriptLoad} />
-        <br />
-        <form noValidate autoComplete="off">
+        <Container maxWidth="md">
+          <Header title="Weather on your route"></Header>
+          <Script url={endpoint} onLoad={this.handleScriptLoad} />
+          <br />
+          <form noValidate autoComplete="off">
+            <div style={{ display: "flex" }}>
+              <FiberManualRecordOutlinedIcon />
+              <Input
+                id="auto_origin"
+                placeholder="origin"
+                value={this.state.origin}
+                name="origin"
+                onChange={this.handleInputChange.bind(this)}
+                style={styles.input}
+                fullWidth
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      tabIndex={-1}
+                      onClick={this.handleClickClear("origin").bind(this)}
+                    >
+                      <ClearIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
+              ></Input>
+            </div>
+            <div style={{ display: "flex" }}>
+              <PlaceIcon />
+              <Input
+                id="auto_destination"
+                placeholder="destination"
+                value={this.state.destination}
+                name="destination"
+                onChange={this.handleInputChange.bind(this)}
+                style={styles.input}
+                fullWidth
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      tabIndex={-1}
+                      onClick={this.handleClickClear("destination").bind(this)}
+                    >
+                      <ClearIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
+              ></Input>
+            </div>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.handleSubmit.bind(this)}
+              disabled={isLoading}
+            >
+              get weathers on the route
+            </Button>
+            {isLoading && <CircularProgress size={24} />}
+          </form>
           <div>
-            <FiberManualRecordOutlinedIcon />
-            <TextField
-              id="auto_origin"
-              placeholder="origin"
-              value={this.state.origin}
-              name="origin"
-              onChange={this.handleInputChange.bind(this)}
-              style={styles.input}
-              fullWidth
-            ></TextField>
+            <List dense={false}>{listItems}</List>
           </div>
-          <div>
-            <PlaceIcon />
-            <TextField
-              id="auto_destination"
-              placeholder="destination"
-              value={this.state.destination}
-              name="destination"
-              onChange={this.handleInputChange.bind(this)}
-              style={styles.input}
-              fullWidth
-            ></TextField>
-          </div>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.handleSubmit.bind(this)}
-            disabled={isLoading}
-          >
-            get weathers on the route
-          </Button>
-          {isLoading && <CircularProgress size={24} />}
-        </form>
-        <div>
-          <List dense={false}>{listItems}</List>
-        </div>
+        </Container>
       </>
     );
   }
