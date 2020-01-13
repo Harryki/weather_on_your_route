@@ -9,7 +9,9 @@ import {
   ListItemIcon,
   ListItemText
 } from "@material-ui/core";
-import FolderIcon from "@material-ui/icons/Folder";
+import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
+import PlaceIcon from "@material-ui/icons/Place";
+
 import axios from "axios";
 
 // components
@@ -29,8 +31,9 @@ const styles = {
   //   boxShadow: "0 3px 5px 2px rgba(33, 203, 243, .30)"
   // }
   input: {
-    width: 400,
-    marginBottom: 10
+    // width: 400,
+    marginBottom: 10,
+    marginLeft: 5
   }
 };
 
@@ -205,24 +208,30 @@ class App extends Component {
         <Script url={endpoint} onLoad={this.handleScriptLoad} />
         <br />
         <form noValidate autoComplete="off">
-          <TextField
-            id="auto_origin"
-            placeholder="origin"
-            value={this.state.origin}
-            name="origin"
-            onChange={this.handleInputChange.bind(this)}
-            style={styles.input}
-          ></TextField>
-          <br />
-          <TextField
-            id="auto_destination"
-            placeholder="destination"
-            value={this.state.destination}
-            name="destination"
-            onChange={this.handleInputChange.bind(this)}
-            style={styles.input}
-          ></TextField>
-          <br />
+          <div>
+            <FiberManualRecordOutlinedIcon />
+            <TextField
+              id="auto_origin"
+              placeholder="origin"
+              value={this.state.origin}
+              name="origin"
+              onChange={this.handleInputChange.bind(this)}
+              style={styles.input}
+              fullWidth
+            ></TextField>
+          </div>
+          <div>
+            <PlaceIcon />
+            <TextField
+              id="auto_destination"
+              placeholder="destination"
+              value={this.state.destination}
+              name="destination"
+              onChange={this.handleInputChange.bind(this)}
+              style={styles.input}
+              fullWidth
+            ></TextField>
+          </div>
           <Button
             variant="contained"
             color="primary"

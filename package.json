@@ -20,7 +20,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "watch": "npm-watch"
+    "watch": "npm-watch",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "watch": {
     "build": "src/"
@@ -41,6 +43,8 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^2.2.0",
     "npm-watch": "^0.6.0"
-  }
+  },
+  "homepage": "https://github.com/Harryki/weather_on_your_route"
 }
